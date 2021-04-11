@@ -12,7 +12,7 @@ app.ws('/', (ws, req) => {
             case 'connection':
                 connectionHandler(ws, msg)
                 break
-            case 'draw':
+            case 'send':
                 broadcastConnection(ws, msg)
                 break
         }
