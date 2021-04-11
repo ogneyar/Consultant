@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultant</title>
+    <style>
+        body {
+            text-align: center;
+        }
+    </style>
+    <script>
+
+    function popup() {
+        document.getElementById('welcome').innerHTML = 'Добро пожаловать!';
+        const socket = new WebSocket('ws://localhost/')
+            
+        socket.onopen = () => {
+            console.log("Подключение установлено")
+        
+            socket.send(JSON.stringify({
+                method: 'connection',
+                id: "unknown",
+                username: "username"
+            }))
+        
+        }
+        socket.onmessage = (event) => {
+            let msg = JSON.parse(event.data)
+            // eslint-disable-next-line
+            switch (msg.method) {
+            case 'connection':
+                console.log(`Пользователь ${msg.username} присоединился`);
+                break
+            case 'send':
+                // this.MessageHandler(msg)
+                console.log(msg);
+                break
+            }
+        }
+        
+    }
+    </script>
+</head>
+<body>
+    <h1>Consultant</h1>
+    <button onclick="popup()">Нажми</button>
+    <div id="welcome"></div>
+    
+</body>
+</html>

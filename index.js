@@ -18,6 +18,7 @@ app.ws('/', (ws, req) => {
         }
     })
 })
+.get('*', (req, res) => res.sendFile(__dirname + '/test/index.html'))
 
 app.listen(PORT, () => console.log(`server started on PORT ${PORT}`))
 
